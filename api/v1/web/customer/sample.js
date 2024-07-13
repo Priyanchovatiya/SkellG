@@ -4,7 +4,7 @@ import fs from 'fs';
 const router = express.Router();
 
 
-router.post('/image', 
+router.get('/sample', 
  async (req, res) => {
     console.log("hello from server");
  })
