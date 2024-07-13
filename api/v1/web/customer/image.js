@@ -15,21 +15,21 @@ const router = express.Router();
 
 
 // Multer disk storage configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    try {
-      console.log("enter");
-      cb(null, 'uploads/'); // Directory where files will be stored
-      console.log("added sucessfully");
-    } catch (error) {
-      console.log("error", error);
-    }
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     try {
+//       console.log("enter");
+//       cb(null, 'uploads/'); // Directory where files will be stored
+//       console.log("added sucessfully");
+//     } catch (error) {
+//       console.log("error", error);
+//     }
   
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Use original filename for uploaded file
-  }
-});
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname); // Use original filename for uploaded file
+//   }
+// });
 
 // Multer upload configuration
 const upload = multer({ storage: storage });
@@ -63,10 +63,12 @@ const upload = multer({ storage: storage });
  *       '500':
  *         description: Server error, failed to upload image.
  */
-router.post('/image', upload.single('image'), async (req, res) => {
+router.post('/image',  async (req, res) => {
   try {
     const jobType = req.body.jobType; // Extract jobType from request body
+    
     console.log("Job Type:", jobType); // Log jobType to console (for debugging)
+    console.log("file", req.file);
 
     const file = req.file; // Uploaded file details
 
