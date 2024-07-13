@@ -8,3 +8,4 @@ router.get('/sample',
  async (req, res) => {
     console.log("hello from server");
  })
+ export default router;
