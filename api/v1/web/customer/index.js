@@ -1,3 +1,4 @@
 import image from "./image"
+import sam from "./sample"
 
-export default [image];
+export default [image, sam];
