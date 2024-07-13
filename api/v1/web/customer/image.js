@@ -76,22 +76,22 @@ router.post('/image', upload.single('image'), async (req, res) => {
     }
 
     // Directory to save files based on jobType
-    const targetDirectory = `uploads/${jobType}/`;
-    const fileName = req.file.originalname.trim(); // Trim any leading/trailing spaces
-    const targetFilePath = `${targetDirectory}${fileName}`;
+    // const targetDirectory = `uploads/${jobType}/`;
+    // const fileName = req.file.originalname.trim(); // Trim any leading/trailing spaces
+    // const targetFilePath = `${targetDirectory}${fileName}`;
 
-    // Ensure target directory exists
-    fs.mkdirSync(targetDirectory, { recursive: true });
+    // // Ensure target directory exists
+    // fs.mkdirSync(targetDirectory, { recursive: true });
 
-    // Move uploaded file to target directory
-    fs.rename(file.path, targetFilePath, (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send('Server error, failed to upload and move image.');
-      }
-      // Respond with success message
-      res.status(200).send('Image uploaded and moved successfully!');
-    });
+    // // Move uploaded file to target directory
+    // fs.rename(file.path, targetFilePath, (err) => {
+    //   if (err) {
+    //     console.error(err);
+    //     return res.status(500).send('Server error, failed to upload and move image.');
+    //   }
+    //   // Respond with success message
+    //   res.status(200).send('Image uploaded and moved successfully!');
+    // });
   } catch (err) {
     console.error(err);
     res.status(400).send('Bad request, please check your file upload.'); // Handle client-side errors
