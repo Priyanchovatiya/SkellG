@@ -94,10 +94,10 @@ router.post('/image',  async (req, res) => {
     //   // Respond with success message
     //   res.status(200).send('Image uploaded and moved successfully!');
     // });
-  } catch (err) {
-    console.error(err);
-    res.status(400).send('Bad request, please check your file upload.'); // Handle client-side errors
-  }
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(400).send('Bad request, please check your file upload.'); // Handle client-side errors
+  // }
 });
 
 export default router;
