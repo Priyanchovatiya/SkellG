@@ -19,6 +19,8 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     try {
       console.log("enter");
+      console.log("file name", file.originalname );
+      console.log("body", req.body);
       cb(null, 'uploads/'); // Directory where files will be stored
       console.log("added sucessfully");
     } catch (error) {
