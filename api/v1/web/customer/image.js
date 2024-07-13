@@ -64,7 +64,7 @@ const upload = multer({ storage: storage });
  *         description: Server error, failed to upload image.
  */
 router.post('/image',  async (req, res) => {
-  try {
+  // try {
     const jobType = req.body.jobType; // Extract jobType from request body
     
     console.log("Job Type:", jobType); // Log jobType to console (for debugging)
