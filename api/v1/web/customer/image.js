@@ -3,6 +3,17 @@ import multer from 'multer';
 import fs from 'fs';
 const router = express.Router();
 
+// for parsing application/json
+router.use(express.json()); 
+
+// for parsing application/x-www-form-urlencoded
+router.use(express.urlencoded({ extended: true })); 
+
+// for parsing multipart/form-data
+router.use(upload.array()); 
+router.use(express.static('public'));
+
+
 // Multer disk storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
