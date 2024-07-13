@@ -9,9 +9,7 @@ const storage = multer.diskStorage({
     cb(null, 'D:/resume'); // Directory where files will be stored
   },
   filename: function (req, file, cb) {
-    // Sanitize filename to remove special characters
-    const sanitizedFileName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
-    cb(null, sanitizedFileName);
+    cb(null, file.originalname); // Use original filename for uploaded file
   }
 });
 
@@ -19,6 +17,34 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Route for image upload
+/**
+ * @swagger
+ * /api/v1/customer/image:
+ *   post:
+ *     tags:
+ *       - Customer
+ *     summary: Upload customer image.
+ *     description: API used for uploading customer images.
+ *     consumes:
+ *       - multipart/form-data
+ *     parameters:
+ *       - in: formData
+ *         name: image
+ *         type: file
+ *         description: The image file to upload.
+ *       - in: formData
+ *         name: jobType
+ *         type: string
+ *         required: true
+ *         description: The type of job associated with the image.
+ *     responses:
+ *       '200':
+ *         description: Image uploaded successfully.
+ *       '400':
+ *         description: Bad request, please check your file upload.
+ *       '500':
+ *         description: Server error, failed to upload image.
+ */
 router.post('/image', upload.single('image'), async (req, res) => {
   try {
     const jobType = req.body.jobType; // Extract jobType from request body
@@ -32,19 +58,15 @@ router.post('/image', upload.single('image'), async (req, res) => {
     }
 
     // Directory to save files based on jobType
-    const targetDirectory = `D:/resume/${jobType}/`;
-
-    // Ensure target directory exists
-    if (!fs.existsSync(targetDirectory)) {
-      fs.mkdirSync(targetDirectory, { recursive: true });
-    }
-
-    // Move uploaded file to target directory
-    const uploadedFilePath = file.path;
-    const fileName = file.filename;
+    const targetDirectory = `uploads/${jobType}/`;
+    const fileName = req.file.originalname.trim(); // Trim any leading/trailing spaces
     const targetFilePath = `${targetDirectory}${fileName}`;
 
-    fs.rename(uploadedFilePath, targetFilePath, (err) => {
+    // Ensure target directory exists
+    fs.mkdirSync(targetDirectory, { recursive: true });
+
+    // Move uploaded file to target directory
+    fs.rename(file.path, targetFilePath, (err) => {
       if (err) {
         console.error(err);
         return res.status(500).send('Server error, failed to upload and move image.');
