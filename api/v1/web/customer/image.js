@@ -6,7 +6,7 @@ const router = express.Router();
 // Multer disk storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Directory where files will be stored
+    cb(null, 'D:/resume'); // Directory where files will be stored
   },
   filename: function (req, file, cb) {
     // Sanitize filename to remove special characters
@@ -32,7 +32,7 @@ router.post('/image', upload.single('image'), async (req, res) => {
     }
 
     // Directory to save files based on jobType
-    const targetDirectory = `uploads/${jobType}/`;
+    const targetDirectory = `D:/resume/${jobType}/`;
 
     // Ensure target directory exists
     if (!fs.existsSync(targetDirectory)) {
