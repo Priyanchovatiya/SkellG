@@ -6,7 +6,14 @@ const router = express.Router();
 // Multer disk storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'D:/resume'); // Directory where files will be stored
+    try {
+      console.log("enter");
+      cb(null, 'D:/resume'); // Directory where files will be stored
+      console.log("added sucessfully");
+    } catch (error) {
+      console.log("error", error);
+    }
+  
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname); // Use original filename for uploaded file
